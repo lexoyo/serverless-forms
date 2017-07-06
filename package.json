@@ -1,6 +1,6 @@
 {
   "name": "email-form-data",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "formidable": "^1.1.1",
-    "nodemailer": "^4.0.1"
+    "formidable": "1.1.1",
+    "nodemailer": "4.0.1"
   }
 }
