@@ -1,0 +1,15 @@
+{
+  "name": "email-form-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.1.1",
+    "nodemailer": "^4.0.1"
+  }
+}
