@@ -1,13 +1,21 @@
 {
   "name": "email-form-data",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node ."
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alex Hoyau <a.hoyau@silexlabs.org> (https://lexoyo.me/)",
+  "bugs": {
+      "url": "https://github.com/lexoyo/email-form-data/issues"
+    },                                                                  
+  "homepage": "https://github.com/lexoyo/email-form-data",
+  "license": "GPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lexoyo/email-form-data.git"
+  },
   "dependencies": {
     "formidable": "1.1.1",
     "nodemailer": "4.0.1"
