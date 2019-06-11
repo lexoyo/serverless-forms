@@ -1,6 +1,6 @@
 # email-form-data
 
-Nodejs server to forward all POST submission by email. Inspired by [formspree](http://formspree.io/), but with the goal to be simpler to install.
+Nodejs server to forward all POST submission by email. Inspired by [formspree](http://formspree.io/), but with the goal to be simpler to install. No database, 100% server (nodejs).
 
 ```
 $ npm i
@@ -13,7 +13,7 @@ server listening on  8080
 
 ```
 
-Then open localhost:8080 and you will see the HTML form which resides in `form.html`. Submit the form and it will send you an email with the content of the form.
+Then open `http://localhost:8080` to see the HTML form which resides in `form.html`. Submit the form and it will send you an email with the content of the form.
 
 You can customize the form, it will keep sending you all the field of the form by email.
 
