@@ -16,7 +16,8 @@ $ npm install
 $ EMAIL_USER="me@myemail.com" \
   EMAIL_PASS="abcd" \
   EMAIL_HOST="mail.gandi.net" \
-  EMAIL_PORT=587 TO="my.name@gmail.com" \
+  EMAIL_PORT=587 \
+  TO="my.name@gmail.com" \
   npm start
 ```
 
