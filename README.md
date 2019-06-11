@@ -1,8 +1,18 @@
 # Serverless Forms
 
-Nodejs server to forward all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) with the goal to be simpler to install and use. No database, 100% server (nodejs).
+This project is made for those who need to add custom HTML forms a static page or static website.
+
+It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) with the goal to be simpler to install and cheaper to host. No database, 100% server (nodejs), just sends the submissions by email.
+
+Suggestion: you can automate the management of the subissions with tools like [Huginn](https://github.com/huginn/huginn), [node-red](https://nodered.org/), [IFTTT](https://ifttt.com/discover), [Zappier](https://zapier.com/)
+
+Links:
+
+* [repository on github](https://github.com/lexoyo/serverless-forms/)
+* [package on npm](https://www.npmjs.com/package/serverless-form)
 
 ## 1 click deploy
+
 Deploy in 1 click on heroku
 
 [![Deploy in 1 click](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/lexoyo/email-form-data/tree/master)
@@ -25,7 +35,7 @@ $ EMAIL_USER="me@myemail.com" \
 
 3- You can customize the form, it will keep sending you all the field of the form by email.
 
-## Config 
+## Config
 
 Here are all the environment variables you can use
 

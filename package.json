@@ -1,6 +1,6 @@
 {
-  "name": "serverless-forms",
-  "version": "1.0.4",
+  "name": "serverless-form",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "Alex Hoyau <a.hoyau@silexlabs.org> (https://lexoyo.me/)",
   "bugs": {
       "url": "https://github.com/lexoyo/email-form-data/issues"
-    },                                                                  
+    },
   "homepage": "https://github.com/lexoyo/email-form-data",
   "license": "GPL",
   "repository": {
@@ -19,5 +19,18 @@
   "dependencies": {
     "formidable": "1.1.1",
     "nodemailer": "4.0.1"
-  }
+  },
+  "keywords": [
+    "email",
+    "serverless",
+    "1 click deploy",
+    "backend",
+    "API",
+    "HTML form",
+    "custom form",
+    "contact form",
+    "email capture form",
+    "static site",
+    "static"
+  ]
 }
