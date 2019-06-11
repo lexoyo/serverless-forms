@@ -1,6 +1,6 @@
 # email-form-data
 
-Nodejs server to forward all POST submission by email
+Nodejs server to forward all POST submission by email. Inspired by [formspree](http://formspree.io/), but with the goal to be simpler to install.
 
 ```
 $ npm i
