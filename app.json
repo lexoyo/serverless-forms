@@ -1,0 +1,47 @@
+{
+  "name": "Email form data",
+  "description": "NodeJS app to send form submissions by email",
+  "logo": "",
+  "repository":"https://github.com/lexoyo/email-form-data.git",
+	"buildpacks": [
+		{
+			"url": "heroku/nodejs"
+		}
+	],
+	"env": {
+    "MESSAGE": {
+      "description": "Message to displayed after the form submission. May contain HTML. Default: 'Thank you for your submission.'"
+    },
+    "EMAIL_HOST": {
+      "description": "SMTP config: hostname or IP address to connect to (defaults to ‘localhost’)",
+      "required": true
+    },
+    "EMAIL_PORT": {
+      "description": "SMTP config: port to connect to (defaults to 587 if is secure is false or 465 if true)",
+      "required": true
+    },
+    "EMAIL_USER": {
+      "description": "SMTP config: your email login",
+      "required": true
+    },
+    "EMAIL_PASS": {
+      "description": "SMTP config: your email password",
+      "required": true
+    },
+    "TO": {
+      "description": "Email address to send the form to (your email)",
+      "required": true
+    },
+    "FROM": {
+      "description": "Email address to use as sender address",
+      "required": true
+    },
+    "SITE_NAME": {
+      "description": "Name of your site, will be displayed in the email title",
+      "required": false
+    }
+	},
+  "keywords": [
+    "email", "form"
+  ]
+}
