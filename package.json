@@ -1,6 +1,6 @@
 {
-  "name": "email-form-data",
-  "version": "1.0.3",
+  "name": "serverless-forms",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
