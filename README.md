@@ -2,6 +2,10 @@
 
 Nodejs server to forward all POST submission by email. Inspired by [formspree](http://formspree.io/), but with the goal to be simpler to install. No database, 100% server (nodejs).
 
+Deploy in 1 click: [![Deploy in 1 click](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/lexoyo/email-form-data/tree/master)
+
+
+
 ```
 $ npm i
 $ EMAIL_USER="me@myemail.com" EMAIL_PASS="abcd" EMAIL_HOST="mail.gandi.net" EMAIL_PORT=587 TO="my.name@gmail.com" npm start
