@@ -33,7 +33,10 @@ Here are all the environment variables you can use
 | PORT | port to listen to |
 | FORM | path to the HTML file containing the form |
 | MESSAGE | displayed after the form submission |
-| EMAIL_HOST | EMAIL_PORT, EMAIL_USER, EMAIL_PASS: [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_HOST | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_PORT | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_USER | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_PASS | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
 | TO | email address to send the form to |
 | FROM | email address to use as sender address |
 | SITE_NAME | name of your site, will be displayed in the email title |
