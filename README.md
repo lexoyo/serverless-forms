@@ -30,13 +30,13 @@ Here are all the environment variables you can use
 
 | Env var | description |
 |---|---|
-| PORT | port to listen to |
-| FORM | path to the HTML file containing the form |
-| MESSAGE | displayed after the form submission |
-| EMAIL_HOST | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
-| EMAIL_PORT | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
-| EMAIL_USER | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
-| EMAIL_PASS | [nodemailer](https://nodemailer.com/) config used to send emails, [see these options here](https://nodemailer.com/smtp/) |
-| TO | email address to send the form to |
-| FROM | email address to use as sender address |
-| SITE_NAME | name of your site, will be displayed in the email title |
+| MESSAGE | Message to displayed after the form submission. May contain HTML. Default: 'Thank you for your submission.' |
+| TO | Email address to send the form to (your email) |
+| FROM | Email address to use as sender address |
+| SITE_NAME | Name of your site, will be displayed in the email title |
+| PORT | Port to listen to for form submissions |
+| FORM | Path to the HTML file containing the example form, defaults to ./form.html |
+| EMAIL_HOST | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_PORT | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_USER | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
+| EMAIL_PASS | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
