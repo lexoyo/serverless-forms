@@ -66,7 +66,7 @@ function processFormFieldsIndividual(req, res) {
 
     form.on('end', function () {
         res.writeHead(200, {
-            'content-type': 'text/plain'
+            'content-type': 'text/html'
         });
         sendMail(util.inspect(fields));
         res.write(process.env.MESSAGE || 'Thank you for your submission.');
