@@ -1,6 +1,6 @@
 {
   "name": "serverless-form",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
   },
   "author": "Alex Hoyau <a.hoyau@silexlabs.org> (https://lexoyo.me/)",
   "bugs": {
-      "url": "https://github.com/lexoyo/email-form-data/issues"
-    },
+    "url": "https://github.com/lexoyo/email-form-data/issues"
+  },
   "homepage": "https://github.com/lexoyo/email-form-data",
   "license": "GPL",
   "repository": {
