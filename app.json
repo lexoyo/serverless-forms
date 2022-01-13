@@ -17,7 +17,7 @@
       "required": true
     },
     "EMAIL_PORT": {
-      "description": "SMTP config: port to connect to (defaults to 587 if is secure is false or 465 if true)",
+      "description": "SMTP config: port to connect to (defaults to 587 if is secure is false or 465 if true)"
     },
     "EMAIL_USER": {
       "description": "SMTP config: your email login",
@@ -36,7 +36,7 @@
       "required": true
     },
     "SITE_NAME": {
-      "description": "Name of your site, will be displayed in the email title",
+      "description": "Name of your site, will be displayed in the email title"
     }
 	},
   "keywords": [
