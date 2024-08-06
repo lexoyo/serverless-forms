@@ -15,6 +15,8 @@ if (!process.env.EMAIL_HOST || !process.env.EMAIL_PORT || !process.env.EMAIL_USE
     process.exit(1);
 }
 
+const defaultDisclaimer = 'A form has been submited on your website. This is an automated email. Please do not reply to this email.';
+
 // setup the server
 // listen on port specified by the `PORT` env var
 var server = http.createServer(function (req, res) {
@@ -69,8 +71,6 @@ function processFormFieldsIndividual(req, res) {
     var fields = [];
     var form = new formidable.IncomingForm();
     form.on('field', function (field, value) {
-        console.log(field);
-        console.log(value);
         fields[field] = value;
     });
 
@@ -78,11 +78,22 @@ function processFormFieldsIndividual(req, res) {
         res.writeHead(200, {
             'content-type': 'text/html'
         });
-        sendMail(util.inspect(fields));
+        sendMail(createHtmlEmailBody(fields));
         res.write(process.env.MESSAGE || 'Thank you for your submission.');
         res.end();
     });
     form.parse(req);
+}
+
+function createHtmlEmailBody(fields) {
+    return `
+        <p>A new form submission was received from your website ${process.env.SITE_NAME}.</p>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <tr><th>Field</th><th>Value</th></tr>
+            ${Object.keys(fields).map(field => `<tr><td>${field}</td><td>${fields[field]}</td></tr>`).join('')}
+        </table>
+        <p>${process.env.DISCLAIMER || defaultDisclaimer}</p>
+    `
 }
 
 // setup the email sender
@@ -103,10 +114,10 @@ function sendMail(text) {
   let mailOptions = {
       from: process.env.FROM || 'Email form data bot <no-reply@no-email.com>',
       to: process.env.TO,
-      subject: 'New form submission' + (process.env.SITE_NAME ? ' on ' + process.env.SITE_NAME : ''),
+      subject: 'New form submission' + (process.env.SITE_NAME ? ' from your website ' + process.env.SITE_NAME : ''),
       text: text
   };
-  console.log('sending email: ', mailOptions);
+  console.log('sending email: ', process.env.FROM, process.env.TO, process.env.SITE_NAME);
   
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {

@@ -4,6 +4,8 @@ This project is made for those who need to add custom HTML forms a static page o
 
 It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) with the goal to be simpler to install and cheaper to host. No database, 100% server (nodejs), just sends the submissions by email.
 
+100% free software. No data is kept on the server. No tracking.
+
 Suggestion: you can automate the management of the subissions with tools like [Huginn](https://github.com/huginn/huginn), [node-red](https://nodered.org/), [IFTTT](https://ifttt.com/discover), [Zappier](https://zapier.com/)
 
 Links:
@@ -65,6 +67,7 @@ Here are all the environment variables you can use
 | Env var | description |
 |---|---|
 | MESSAGE | Message to displayed after the form submission. May contain HTML. Default: 'Thank you for your submission.' |
+| DISCLAIMER | Message added to the email sent to the recipient. May contain HTML. Default: 'A form has been submited on your website. This is an automated email. Please do not reply to this email.' |
 | TO | Email address to send the form to (your email) |
 | FROM | Email address to use as sender address |
 | SITE_NAME | Name of your site, will be displayed in the email title |
