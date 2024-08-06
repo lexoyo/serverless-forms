@@ -23,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: silexlabs/silex
+          images: lexoyo/serverless-forms
 
       - name: Build and push
         uses: docker/build-push-action@v2
