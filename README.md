@@ -11,29 +11,52 @@ Links:
 * [repository on github](https://github.com/lexoyo/serverless-forms/)
 * [package on npm](https://www.npmjs.com/package/serverless-form)
 
-## 1 click deploy
+## Install
+
+### Docker
+
+You can use the docker image to run the serverless form server.
+
+```
+docker run -e EMAIL_USER="username" \
+  EMAIL_PASS="********" \
+  EMAIL_HOST="mail.gandi.net" \
+  EMAIL_PORT=587 \
+  TO="me@myemail.com" \
+  -p 8080:8080 lexoyo/serverless-form
+```
+
+### 1 click deploy
 
 Deploy in 1 click on heroku
 
 [![Deploy in 1 click](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/lexoyo/email-form-data/tree/master)
 
-## Local install and use
+### Local install
 
-1- type these 2 commands
+Clone this repository and run the following commands:
 
 ```
 $ npm install
-$ EMAIL_USER="me@myemail.com" \
-  EMAIL_PASS="abcd" \
+$ EMAIL_USER="username" \
+  EMAIL_PASS="*******" \
   EMAIL_HOST="mail.gandi.net" \
   EMAIL_PORT=587 \
-  TO="my.name@gmail.com" \
+  TO="me@myemail.com" \
   npm start
 ```
 
-2- Open `http://localhost:8080` to see the HTML form which resides in `form.html`. Submit the form and it will send you an email with the content of the form.
+## Usage
 
-3- You can customize the form, it will keep sending you all the field of the form by email.
+### Test with the example form
+
+Open `http://localhost:8080` to see the HTML form which resides in `form.html`.
+
+Submit the form and it will send you an email with the content of the form.
+
+### Send data with forms
+
+Create any html form and POST data to the server, it will keep sending you all the field of the form by email.
 
 ## Config
 
