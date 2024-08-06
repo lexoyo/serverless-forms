@@ -15,6 +15,10 @@ if (!process.env.EMAIL_HOST || !process.env.EMAIL_PORT || !process.env.EMAIL_USE
     process.exit(1);
 }
 
+const TOKEN_FIELD = process.env.TOKEN_FIELD || 'token'
+const [TO_STRING, TO_TOKENS] = getToWithTokens(process.env.TO);
+console.log('TO_STRING:', TO_STRING, 'TO_TOKENS:', TO_TOKENS);
+
 const defaultDisclaimer = 'A form has been submited on your website. This is an automated email. Please do not reply to this email.';
 
 // setup the server
@@ -42,6 +46,30 @@ function displayForm(res) {
         res.write(data);
         res.end();
     });
+}
+
+
+// get the email addresses from the `TO` env var
+// @example TO="email1@domain,email2@domain"
+// @example TO="{ \"token1\": \"email1@domain\", \"token2\": \"email2@domain\" }"
+function getToWithTokens(to) {
+    try {
+        console.log('to:', to);
+        return [null, JSON.parse(to)];
+    } catch (e) {
+        console.error('Error parsing TO:', e);
+        return [to, null];
+    }
+}
+
+function getTo(fields) {
+    const to = TO_STRING || TO_TOKENS[fields[TOKEN_FIELD]]
+    if (!to) {
+        console.error('No email address found in the form', { TO_STRING, TO_TOKENS, TOKEN_FIELD }, `Add a field named ${TOKEN_FIELD} with a value that matches one of the tokens in the TO env var`);
+        return
+    }
+    console.log('to:', to);
+    return to
 }
 
 // get the POST data 
@@ -78,7 +106,29 @@ function processFormFieldsIndividual(req, res) {
         res.writeHead(200, {
             'content-type': 'text/html'
         });
-        sendMail(createHtmlEmailBody(fields));
+        let text;
+        try {
+            text = createHtmlEmailBody(fields)
+        } catch (e) {
+            console.error('Error creating email body:', e);
+            res.end('Error creating email body');
+            return;
+        }
+        let to;
+        try {
+            to = getTo(fields);
+        } catch (e) {
+            console.error('Error getting email address:', e);
+            res.end('Error getting email address');
+            return;
+        }
+        try {
+            sendMail(text, to);
+        } catch (e) {
+            console.error('Error sending email:', e);
+            res.end('Error sending email');
+            return;
+        }
         res.write(process.env.MESSAGE || 'Thank you for your submission.');
         res.end();
     });
@@ -109,15 +159,15 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-function sendMail(text) {
+function sendMail(text, to) {
   // setup email data with unicode symbols
-  let mailOptions = {
+  const mailOptions = {
       from: process.env.FROM || 'Email form data bot <no-reply@no-email.com>',
-      to: process.env.TO,
+      to,
       subject: 'New form submission' + (process.env.SITE_NAME ? ' from your website ' + process.env.SITE_NAME : ''),
       text: text
   };
-  console.log('sending email: ', process.env.FROM, process.env.TO, process.env.SITE_NAME);
+  console.log('sending email: ', 'from:', process.env.FROM, 'to:', to, 'site name:', process.env.SITE_NAME);
   
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
@@ -127,4 +177,3 @@ function sendMail(text) {
       console.log('Message %s sent: %s', info.messageId, info.response);
   });
 }
-

@@ -68,7 +68,8 @@ Here are all the environment variables you can use
 |---|---|
 | MESSAGE | Message to displayed after the form submission. May contain HTML. Default: 'Thank you for your submission.' |
 | DISCLAIMER | Message added to the email sent to the recipient. May contain HTML. Default: 'A form has been submited on your website. This is an automated email. Please do not reply to this email.' |
-| TO | Email address to send the form to (your email) |
+| TO | Email address(es) to send the form to (your email) |
+| TO | A json object with tokens as keys and email addresses as values. The form will be expected to have a hidden field with the name `token` and the value of the token. If the token is found in the object, the email will be sent to the corresponding email address(es). |
 | FROM | Email address to use as sender address |
 | SITE_NAME | Name of your site, will be displayed in the email title |
 | PORT | Port to listen to for form submissions |
