@@ -102,15 +102,15 @@ function processFormFieldsIndividual(req, res) {
         fields[field] = value;
     });
 
+    const referer = `${req.headers['x-forwarded'] || req.headers['x-forwarded-for'] || req.headers['referer'] || req.headers['origin'] || req.headers['host'] || 'your website'}`;
+
     form.on('end', function () {
-        res.writeHead(200, {
-            'content-type': 'text/html'
-        });
         let text;
         try {
-            text = createHtmlEmailBody(fields)
+            text = createHtmlEmailBody(fields, referer);
         } catch (e) {
             console.error('Error creating email body:', e);
+            res.writeHead(500, { 'content-type': 'text/html' });
             res.end('Error creating email body');
             return;
         }
@@ -119,25 +119,43 @@ function processFormFieldsIndividual(req, res) {
             to = getTo(fields);
         } catch (e) {
             console.error('Error getting email address:', e);
+            res.writeHead(400, { 'content-type': 'text/html' });
             res.end('Error getting email address');
             return;
         }
         try {
-            sendMail(text, to);
+            sendMail(text, to, referer);
         } catch (e) {
             console.error('Error sending email:', e);
+            res.writeHead(500, { 'content-type': 'text/html' });
             res.end('Error sending email');
             return;
         }
+        if(process.env.REDIRECT && fields.thanks) {
+            if(!process.env.REDIRECT_DOMAINS.split(',').includes(new URL(fields.thanks).hostname)) {
+                console.error(`Redirect domain not allowed: ${new URL(fields.thanks).hostname}`);
+                res.writeHead(500, { 'content-type': 'text/html' });
+                res.write('Redirect domain not allowed');
+                res.end();
+                return;
+            }
+            console.log('Redirecting to:', fields.thanks);
+            res.writeHead(302, {
+                'Location': fields.thanks,
+            });
+            res.end();
+            return;
+        }
+        res.writeHead(200, { 'content-type': 'text/html' });
         res.write(process.env.MESSAGE || 'Thank you for your submission.');
         res.end();
     });
     form.parse(req);
 }
 
-function createHtmlEmailBody(fields) {
+function createHtmlEmailBody(fields, referer) {
     return `
-        <p>A new form submission was received from your website ${process.env.SITE_NAME}.</p>
+        <p>A new form submission was received from your website ${referer || 'your website'}</p>
         <table border="1" cellpadding="5" cellspacing="0">
             <tr><th>Field</th><th>Value</th></tr>
             ${Object.keys(fields).map(field => `<tr><td>${field}</td><td>${fields[field]}</td></tr>`).join('')}
@@ -159,15 +177,15 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-function sendMail(text, to) {
+function sendMail(text, to, referer) {
   // setup email data with unicode symbols
   const mailOptions = {
       from: process.env.FROM || 'Email form data bot <no-reply@no-email.com>',
       to,
-      subject: 'New form submission' + (process.env.SITE_NAME ? ' from your website ' + process.env.SITE_NAME : ''),
+      subject: 'New form submission' + (referer ? ' from your website ' + referer : ''),
       text: text
   };
-  console.log('sending email: ', 'from:', process.env.FROM, 'to:', to, 'site name:', process.env.SITE_NAME);
+  console.log('sending email: ', 'from:', process.env.FROM, 'to:', to, 'site name:', referer);
   
   // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {

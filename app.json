@@ -28,15 +28,21 @@
       "required": true
     },
     "TO": {
-      "description": "Email address to send the form to (your email)",
+      "description": "Email address to send the form to (your email), or a list of email addresses separated by commas, or an array of token / email addresses",
       "required": true
     },
     "FROM": {
       "description": "Email address to use as sender address",
       "required": true
     },
-    "SITE_NAME": {
-      "description": "Name of your site, will be displayed in the email title"
+    "DISCLAIMER": {
+      "description": "Disclaimer to add at the end of the email. May contain HTML."
+    },
+    "REDIRECT": {
+      "description": "URL to redirect to after the form submission. Default: false"
+    },
+    "REDIRECT_DOMAINS": {
+      "description": "List of domains to redirect to. Default: []"
     }
 	},
   "keywords": [
