@@ -13,6 +13,18 @@ Links:
 * [repository on github](https://github.com/lexoyo/serverless-forms/)
 * [package on npm](https://www.npmjs.com/package/serverless-form)
 
+Features and road map
+
+- [x] Send email with submited form data
+- [x] Send email to multiple recipients
+- [x] Use tokens in place of email addresses to avoid spam
+- [x] Make sure sensitive data is not logged or stored on the server
+- [ ] Thank you page redirection
+- [ ] Send confirmation email to the form submitter
+- [ ] Captcha to avoid spam
+- [ ] Honeypot field to avoid spam
+- [ ] Webhook to send data to other services
+
 ## Install
 
 ### Docker
