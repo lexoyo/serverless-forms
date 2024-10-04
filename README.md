@@ -1,12 +1,12 @@
 # Serverless Forms
 
-This project is made for those who need to add custom HTML forms a static page or static website.
+This project is made for those who need to add forms to their static page or static website.
 
-It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) with the goal to be simpler to install and cheaper to host. No database, 100% server (nodejs), just sends the submissions by email.
+It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) which is not open source anymore and it was too hard to self host anyway. No database, 100% server (nodejs), just sends the submissions by email.
 
-100% free software. No data is kept on the server. No tracking.
+100% free software. No data is kept on the server. No tracking. No cookie.
 
-Suggestion: you can automate the management of the subissions with tools like [Huginn](https://github.com/huginn/huginn), [node-red](https://nodered.org/), [IFTTT](https://ifttt.com/discover), [Zappier](https://zapier.com/)
+Suggestion: thanks to the webhook feature you can automate the management of the subissions with tools like [Huginn](https://github.com/huginn/huginn), [node-red](https://nodered.org/), [codeberg](https://codeberg.org/about/)/[forgejo](https://forgejo.org/)...
 
 Links:
 
