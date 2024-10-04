@@ -20,6 +20,7 @@ Features and road map
 - [x] Use tokens in place of email addresses to avoid spam
 - [x] Make sure sensitive data is not logged or stored on the server
 - [x] Thank you page redirection
+- [x] Use tokens instead of emails to avoid being scrapped and spammed
 - [ ] Error page redirection or message in GET
 - [ ] Send confirmation email to the form submitter
 - [ ] Captcha to avoid spam
