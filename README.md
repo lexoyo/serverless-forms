@@ -2,7 +2,9 @@
 
 This project is made for those who need to add forms to their static page or static website.
 
-It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) which is not open source anymore and it was too hard to self host anyway. No database, 100% server (nodejs), just sends the submissions by email.
+It is a simple nodejs server which forwards all POST submission by email. Inspired by the excellent [formspree](http://formspree.io/) which is not open source anymore and it was too hard to self host anyway.
+
+No database, 100% server (nodejs or Docker), just sends the submissions by email.
 
 100% free software. No data is kept on the server. No tracking. No cookie.
 
@@ -21,6 +23,7 @@ Features and road map
 - [x] Make sure sensitive data is not logged or stored on the server
 - [x] Thank you page redirection
 - [x] Use tokens instead of emails to avoid being scrapped and spammed
+- [x] Easy self hosting with a docker image or instructions for nodejs
 - [ ] Error page redirection or message in GET
 - [ ] Send confirmation email to the form submitter
 - [ ] Captcha to avoid spam
