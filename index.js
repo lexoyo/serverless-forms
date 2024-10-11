@@ -101,54 +101,86 @@ function sendError(res, message, err) {
         <head>
             <title>Error</title>
         <style>
-            body {
-                background-color: #f8f9fa;
-                font-family: sans-serif;
-                margin: 0;
-                padding: 0;
-            }
+                body {
+            background-color: #f2f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+        section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 600px;
+            width: 90%;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            background-color: #ff4757;
+            color: white;
+            font-size: 1.8em;
+            padding: 0.8em;
+            margin: -2em -2em 1.5em -2em;
+            border-radius: 10px 10px 0 0;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 0.8em 0;
+            line-height: 1.5;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            white-space: pre-wrap;
+            background-color: #f1f1f1;
+            border-left: 4px solid #ff4757;
+            padding: 1em;
+            border-radius: 5px;
+            font-size: 0.95em;
+            overflow-x: auto;
+            margin: 1.5em 0;
+        }
+        footer {
+            border-top: 1px solid #e9ecef;
+            padding-top: 1em;
+            margin-top: 2em;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #7f8c8d;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #ff4757;
+        }
+        @media (max-width: 600px) {
             section {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                height: 100vh;
-                max-width: 50vw;
-                margin: auto;
-                border: 1px solid #f0f0f0;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                background-color: #fff;
+                padding: 1.5em;
             }
             h1 {
-              text-align: center;
-              padding: 20px;
-              margin: 0;
-              background-color: #333;
-              color: white;
+                font-size: 1.5em;
+                padding: 0.6em;
             }
-            main {
-                padding: 1em;
+            p, pre {
+                font-size: 1em;
             }
-            footer {
-                padding: 1em;
-                border-top: 1px solid #f0f0f0;
-                text-align: center;
-            }
-            a {
-                color: #007bff;
-            }
-            pre {
-                white-space: pre-wrap;
-                border: 1px solid #f0f0f0;
-                padding: 1em;
-                background-color: #f0f0f0;
-                border-radius: 5px;
-                margin: 1em 0;
-            }
-            hr {
-                border: 0;
-                border-top: 1px solid #f0f0f0;
-            }
+        }
+
         </style>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
