@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <head>
   <title>Fill in this form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      background-color: #333;
+      color: white;
+    }
+    main {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 20px;
+    }
+    aside {
+      width: 300px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      margin: 100px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    @media screen and (max-width: 1000px) {
+      main {
+        flex-direction: column;
+      }
+      aside {
+        width: 80%;
+      }
+      form {
+        width: 80%;
+        margin: 0;
+      }
+      
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="description" content="A simple form">
 </head>
 <body>
-  <form action="" method="post" enctype="multipart/form-data">
-  <label for="Email">Email</label><br />
-  <input id="Email" type="email" name="Email" required><br />
-  <label for="Name">Name</label><br />
-  <input id="Name" type="text" name="Name" required><br />
-  <input type="hidden" name="token" value="example" />
-  <input type="submit" value="Send">
-</form>
+  <h1>Example form</h1>
+  <main>
+    <form action="" method="post" enctype="multipart/form-data">
+      <label for="Email">Email</label><br />
+      <input id="Email" type="email" name="Email" required><br />
+      <label for="Name">Name</label><br />
+      <input id="Name" type="text" name="Name" required><br />
+      <input type="hidden" name="site" value="home page of serverless forms" />
+      <input type="hidden" name="thanks" value="https://test.com/thanks" />
+      <input type="submit" value="Send">
+    </form>
+    <aside>
+      <p>
+        This form is an example of a form that can be submitted to Serverless Forms. To avoid receiving emails, it will lead to an error page.
+      </p>
+      <p>
+        Feel free to inspect the code and see how it works. Or read <a href="https://serverlessforms.com/docs">the documentation</a> to learn more.
+      </p>
+      <p>Powered by <a href="https://serverlessforms.com">Serverless Forms</a></p>
+    </aside>
+  </main>
+  <footer>
+  </footer>
 </body>
 </html>

@@ -67,7 +67,7 @@ function getTo(fields) {
     const to = TO_STRING || TO_TOKENS[fields[TOKEN_FIELD]]
     if (!to) {
         console.error('No email address found in the form', { TO_STRING, TO_TOKENS, TOKEN_FIELD }, `Add a field named ${TOKEN_FIELD} with a value that matches one of the tokens in the TO env var`);
-        return
+        throw new Error(`No email address found for token: ${fields[TOKEN_FIELD]}`);
     }
     console.log('to:', to);
     return to
@@ -93,6 +93,87 @@ function processAllFieldsOfTheForm(req, res) {
     });
 }
 
+function sendError(res, message, err) {
+    console.error(message, err);
+    res.writeHead(500, { 'content-type': 'text/html' });
+    res.end(`
+    <html>
+        <head>
+            <title>Error</title>
+        <style>
+            body {
+                background-color: #f8f9fa;
+                font-family: sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            section {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100vh;
+                max-width: 50vw;
+                margin: auto;
+                border: 1px solid #f0f0f0;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                background-color: #fff;
+            }
+            h1 {
+              text-align: center;
+              padding: 20px;
+              margin: 0;
+              background-color: #333;
+              color: white;
+            }
+            main {
+                padding: 1em;
+            }
+            footer {
+                padding: 1em;
+                border-top: 1px solid #f0f0f0;
+                text-align: center;
+            }
+            a {
+                color: #007bff;
+            }
+            pre {
+                white-space: pre-wrap;
+                border: 1px solid #f0f0f0;
+                padding: 1em;
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                margin: 1em 0;
+            }
+            hr {
+                border: 0;
+                border-top: 1px solid #f0f0f0;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="description" content="Error">
+        </head>
+        <body>
+        <section>
+            <main>
+                <h1>Error / Erreur</h1>
+                <p>Sorry, an error occured. Your form was not submitted.</p>
+                <p>Une erreur est survenue. Votre formulaire n'a pas été envoyé.</p>
+                <hr>
+                <p>${message}</p>
+                <pre>${err}</pre>
+                <p><a href="javascript:history.back()">Go back</a></p>
+            </main>
+            <footer>
+                <p><a href="https://github.com/lexoyo/serverless-forms">Powered by serverless-forms</a></p>
+            </footer>
+        </section>
+        </body>
+    `);
+}
+
 function processFormFieldsIndividual(req, res) {
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
@@ -110,35 +191,22 @@ function processFormFieldsIndividual(req, res) {
         try {
             text = createHtmlEmailBody(fields, referer);
         } catch (e) {
-            console.error('Error creating email body:', e);
-            res.writeHead(500, { 'content-type': 'text/html' });
-            res.end('Error creating email body');
-            return;
+            return sendError(res, 'Error creating email body', e);
         }
         let to;
         try {
             to = getTo(fields);
         } catch (e) {
-            console.error('Error getting email address:', e);
-            res.writeHead(400, { 'content-type': 'text/html' });
-            res.end('Error getting email address');
-            return;
+            return sendError(res, 'Destination email not found for this form.', e);
         }
         try {
             sendMail(text, to, referer);
         } catch (e) {
-            console.error('Error sending email:', e);
-            res.writeHead(500, { 'content-type': 'text/html' });
-            res.end('Error sending email');
-            return;
+            return sendError(res, 'Error sending email:', e);
         }
         if(process.env.REDIRECT === 'true' && fields.thanks) {
             if(!process.env.REDIRECT_DOMAINS.split(',').includes(new URL(fields.thanks).hostname)) {
-                console.error(`Redirect domain not allowed: ${new URL(fields.thanks).hostname}`);
-                res.writeHead(500, { 'content-type': 'text/html' });
-                res.write('Redirect domain not allowed');
-                res.end();
-                return;
+                return sendError(res, `Redirect domain not allowed: ${new URL(fields.thanks).hostname}`, new Error('Redirect domain not allowed'));
             }
             console.log('Redirecting to:', fields.thanks);
             res.writeHead(302, {
