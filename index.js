@@ -237,10 +237,15 @@ function processFormFieldsIndividual(req, res) {
             return sendError(res, 'Error sending email:', e);
         }
         if(process.env.REDIRECT === 'true' && fields.thanks) {
-            if(!process.env.REDIRECT_DOMAINS.split(',').includes(new URL(fields.thanks).hostname)) {
-                return sendError(res, `Redirect domain not allowed: ${new URL(fields.thanks).hostname}`, new Error('Redirect domain not allowed'));
+            try {
+                new URL(fields.thanks);
+                if(!process.env.REDIRECT_DOMAINS.split(',').includes(new URL(fields.thanks).hostname)) {
+                    return sendError(res, `Redirect domain not allowed: ${new URL(fields.thanks).hostname}`, new Error('Redirect domain not allowed'));
+                }
+                console.log('Redirecting to:', fields.thanks);
+            } catch (e) {
+                return sendError(res, `Invalid redirect URL ${fields.thanks}`, e);
             }
-            console.log('Redirecting to:', fields.thanks);
             res.writeHead(302, {
                 'Location': fields.thanks,
             });
