@@ -113,6 +113,20 @@ REDIRECT_DOMAINS="localhost,your-domain.com" \
 npm start
 ```
 
+### Site name
+
+You can provide a site name to be used in the email subject and body.
+
+```html
+<form method="post" action="http://localhost:8080">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="message" placeholder="Message" required></textarea>
+  <button type="submit">Send</button>
+  <input type="hidden" name="site" value="My Site">
+</form>
+```
+
 ## Install
 
 ### Docker

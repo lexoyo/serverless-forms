@@ -16,6 +16,7 @@ if (!process.env.EMAIL_HOST || !process.env.EMAIL_PORT || !process.env.EMAIL_USE
 }
 
 const TOKEN_FIELD = process.env.TOKEN_FIELD || 'token'
+const SITE_FIELD = process.env.SITE_FIELD || 'site'
 const [TO_STRING, TO_TOKENS] = getToWithTokens(process.env.TO);
 console.log('TO_STRING:', TO_STRING, 'TO_TOKENS:', TO_TOKENS);
 
@@ -102,7 +103,7 @@ function processFormFieldsIndividual(req, res) {
         fields[field] = value;
     });
 
-    const referer = `${req.headers['x-forwarded'] || req.headers['x-forwarded-for'] || req.headers['referer'] || req.headers['origin'] || req.headers['host'] || 'your website'}`;
+    const referer = fields[SITE_FIELD] || req.headers['referer'] || req.headers['x-forwarded'] || req.headers['x-forwarded-for'] || req.headers['origin'] || req.headers['host'] || 'your website';
 
     form.on('end', function () {
         let text;
@@ -131,7 +132,7 @@ function processFormFieldsIndividual(req, res) {
             res.end('Error sending email');
             return;
         }
-        if(process.env.REDIRECT && fields.thanks) {
+        if(process.env.REDIRECT === 'true' && fields.thanks) {
             if(!process.env.REDIRECT_DOMAINS.split(',').includes(new URL(fields.thanks).hostname)) {
                 console.error(`Redirect domain not allowed: ${new URL(fields.thanks).hostname}`);
                 res.writeHead(500, { 'content-type': 'text/html' });
@@ -155,7 +156,7 @@ function processFormFieldsIndividual(req, res) {
 
 function createHtmlEmailBody(fields, referer) {
     return `
-        <p>A new form submission was received from your website ${referer || 'your website'}</p>
+        <p>A new form submission was received from your website ${referer}</p>
         <table border="1" cellpadding="5" cellspacing="0">
             <tr><th>Field</th><th>Value</th></tr>
             ${Object.keys(fields).map(field => `<tr><td>${field}</td><td>${fields[field]}</td></tr>`).join('')}
@@ -182,7 +183,7 @@ function sendMail(text, to, referer) {
   const mailOptions = {
       from: process.env.FROM || 'Email form data bot <no-reply@no-email.com>',
       to,
-      subject: 'New form submission' + (referer ? ' from your website ' + referer : ''),
+      subject: `New form submission on ${referer}`,
       text: text
   };
   console.log('sending email: ', 'from:', process.env.FROM, 'to:', to, 'site name:', referer);
