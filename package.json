@@ -19,7 +19,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "formidable": "1.1.1",
-    "nodemailer": "4.0.1"
+    "nodemailer": "6.6.1"
   },
   "keywords": [
     "email",
