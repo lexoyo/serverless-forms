@@ -20,7 +20,7 @@ const SITE_FIELD = process.env.SITE_FIELD || 'site'
 const [TO_STRING, TO_TOKENS] = getToWithTokens(process.env.TO);
 console.log('TO_STRING:', TO_STRING, 'TO_TOKENS:', TO_TOKENS);
 
-const defaultDisclaimer = 'A form has been submited on your website. This is an automated email. Please do not reply to this email.';
+const defaultDisclaimer = 'A form has been submitted on your website. This is an automated email. Please do not reply to this email.';
 
 // setup the server
 // listen on port specified by the `PORT` env var
@@ -42,13 +42,12 @@ function displayForm(res) {
     fs.readFile(process.env.FORM || 'form.html', function (err, data) {
         res.writeHead(200, {
             'Content-Type': 'text/html',
-                'Content-Length': data.length
+            'Content-Length': data.length
         });
         res.write(data);
         res.end();
     });
 }
-
 
 // get the email addresses from the `TO` env var
 // @example TO="email1@domain,email2@domain"
@@ -219,9 +218,9 @@ function processFormFieldsIndividual(req, res) {
     const referer = fields[SITE_FIELD] || req.headers['referer'] || req.headers['x-forwarded'] || req.headers['x-forwarded-for'] || req.headers['origin'] || req.headers['host'] || 'your website';
 
     form.on('end', function () {
-        let text;
+        let html;
         try {
-            text = createHtmlEmailBody(fields, referer);
+            html = createHtmlEmailBody(fields, referer);
         } catch (e) {
             return sendError(res, 'Error creating email body', e);
         }
@@ -232,7 +231,7 @@ function processFormFieldsIndividual(req, res) {
             return sendError(res, 'Destination email not found for this form.', e);
         }
         try {
-            sendMail(text, to, referer);
+            sendMail(html, to, referer);
         } catch (e) {
             return sendError(res, 'Error sending email:', e);
         }
@@ -272,7 +271,7 @@ function createHtmlEmailBody(fields, referer) {
 
 // setup the email sender
 // uses the nodemailer lib
-// sends the email to the adress found in the `TO` env var
+// sends the email to the address found in the `TO` env var
 let transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -283,13 +282,13 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-function sendMail(text, to, referer) {
+function sendMail(html, to, referer) {
   // setup email data with unicode symbols
   const mailOptions = {
       from: process.env.FROM || 'Email form data bot <no-reply@no-email.com>',
       to,
       subject: `New form submission on ${referer}`,
-      text: text
+      html: html
   };
   console.log('sending email: ', 'from:', process.env.FROM, 'to:', to, 'site name:', referer);
   
