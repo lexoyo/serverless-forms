@@ -1,0 +1,29 @@
+name: Run tests
+
+on:
+  push: # Runs on all pushes
+    branches:
+      - "**"
+  pull_request: # Runs on all pull requests
+  workflow_dispatch: # Allows manual trigger of tests
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test
+      env:
+        CI: true
