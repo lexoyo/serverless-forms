@@ -1,6 +1,6 @@
 {
   "name": "serverless-form",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "main": "lib/index.js",
   "module": "lib/index.js",
