@@ -1,15 +1,14 @@
 name: Publish DockerHub image
 
 on:
-  workflow_run:
-    workflows: ["Run tests"]
-    types:
-      - completed
+  push:
+    tags:
+      - "v*.*.*" # Matches semantic version tags like v1.0.0
 
 jobs:
   build-container:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && startsWith(github.event.workflow_run.head_branch, 'refs/tags/') }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
