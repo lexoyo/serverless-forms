@@ -131,7 +131,7 @@ You can provide a site name to be used in the email subject and body.
 
 ### Docker
 
-You can use the docker image to run the serverless form server.
+You can use the [docker image available on docker hub](https://hub.docker.com/repository/docker/lexoyo/serverless-forms) to run the serverless form server.
 
 ```
 docker run -e EMAIL_USER="username" \
