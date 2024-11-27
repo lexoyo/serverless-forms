@@ -25,7 +25,7 @@ export async function setupMailDev(options) {
 
 export async function getNextEmail() {
   return new Promise((resolve) => {
-    const timeout = setTimeout(resolve, 5000);
+    const timeout = setTimeout(resolve, 1000);
     cbks.push((email) => {
       resolve(email)
       clearTimeout(timeout);

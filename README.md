@@ -24,10 +24,10 @@ Features and road map
 - [x] Thank you page redirection
 - [x] Use tokens instead of emails to avoid being scrapped and spammed
 - [x] Easy self hosting with a docker image or instructions for nodejs
+- [x] Honeypot field to avoid spam
 - [ ] Error page redirection or message in GET
 - [ ] Send confirmation email to the form submitter
 - [ ] Captcha to avoid spam
-- [ ] Honeypot field to avoid spam
 - [ ] Webhook to send data to other services
 - [ ] Localisation of the messages / emails (i18n, multiple languages)
 
@@ -164,12 +164,12 @@ $ EMAIL_USER="username" \
 
 ## Config
 
-Here are all the environment variables you can use
+Here are all the environment variables you can use, check the file `lib/index.js` to see how the default values.
 
 | Env var | description |
 |---|---|
-| MESSAGE | Message to displayed after the form submission. May contain HTML. Default: 'Thank you for your submission.' |
-| DISCLAIMER | Message added to the email sent to the recipient. May contain HTML. Default: 'A form has been submited on your website. This is an automated email. Please do not reply to this email.' |
+| MESSAGE | Message to displayed after the form submission. May contain HTML. |
+| DISCLAIMER | Message added to the email sent to the recipient. May contain HTML. |
 | TO | Email address(es) to send the form to (your email) |
 | TO | A json object with tokens as keys and email addresses as values. The form will be expected to have a hidden field with the name `token` and the value of the token. If the token is found in the object, the email will be sent to the corresponding email address(es). |
 | FROM | Email address to use as sender address |
@@ -181,3 +181,6 @@ Here are all the environment variables you can use
 | EMAIL_PORT | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_USER | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_PASS | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
+| TOKEN_FIELD | Name of the field in the form which contains the token |
+| SITE_FIELD | Name of the field in the form which contains the site name (used in the email subject) |
+| HONEY_FIELD | Name of the field in the form which is a honeypot (if filled, the form will be considered as spam) |

@@ -105,4 +105,21 @@ describe('handleForm', function () {
     assert.strictEqual(received2.html.includes(referer), false, 'Referer should be in the email');
     assert.strictEqual(received2.html.includes(site), true, 'Site should be in the email');
   });
+
+  it('should not send an email if the honeypot field is filled', async function () {
+    await handleForm({
+      email: 'alex@test.com',
+      phone: '1234567890',
+    }, undefined, {
+      mail: {
+        host: 'localhost',
+        port: smtpPort,
+      },
+      to: 'alex@test.com',
+      honeyField: 'phone',
+    })
+
+    const received = await getNextEmail();
+    assert.strictEqual(received, undefined, 'Email should not be defined');
+  });
 });
