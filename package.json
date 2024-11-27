@@ -3,9 +3,11 @@
   "version": "1.0.13",
   "description": "",
   "main": "lib/index.js",
+  "module": "lib/index.js",
+  "type": "module",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon lib"
   },
   "author": "Alex Hoyau <a.hoyau@silexlabs.org> (https://lexoyo.me/)",
   "bugs": {
