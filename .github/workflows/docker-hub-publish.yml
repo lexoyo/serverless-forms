@@ -2,13 +2,13 @@ name: Publish DockerHub image
 
 on:
   workflow_run:
-    workflows: ["Run tests"] # Triggers when the `test.yml` workflow completes
+    workflows: ["Run tests"]
     types:
       - completed
 
 jobs:
   build-container:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_commit.message, 'v') }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_commit.message == github.ref_name }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
