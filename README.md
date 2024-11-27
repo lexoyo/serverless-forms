@@ -35,7 +35,7 @@ Features and road map
 
 ### Test with the example form
 
-Open `http://localhost:8080` to see the HTML form which resides in `form.html`.
+Open `http://localhost:8080` to see the HTML form which resides in `public/form.html`.
 
 Submit the form and it will send you an email with the content of the form.
 
@@ -176,7 +176,7 @@ Here are all the environment variables you can use
 | REDIRECT | If set to true, the server will redirect to the URL provided in the `thanks` hidden field of the form |
 | REDIRECT_DOMAINS | Comma separated list of domains for which the server will redirect to the URL provided in the `thanks` hidden field of the form |
 | PORT | Port to listen to for form submissions |
-| FORM | Path to the HTML file containing the example form, defaults to ./form.html |
+| FORM | Path to the HTML file containing the example form, defaults to `public/form.html` |
 | EMAIL_HOST | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_PORT | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_USER | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
