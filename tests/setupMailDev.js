@@ -13,7 +13,6 @@ export async function setupMailDev(options) {
     });
 
     maildev.listen(function () {
-      console.log('MailDev listening on port 1025');
       resolve(maildev);
     });
 

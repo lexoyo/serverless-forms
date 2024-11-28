@@ -1,6 +1,7 @@
 import assert from 'assert';
 import { handleForm } from '../lib/post.js';
 import { getNextEmail, setupMailDev } from './setupMailDev.js';
+import http from 'http';
 
 describe('handleForm', function () {
   const smtpPort = 1025;
@@ -121,5 +122,64 @@ describe('handleForm', function () {
 
     const received = await getNextEmail();
     assert.strictEqual(received, undefined, 'Email should not be defined');
+  });
+
+  it('should call the hook with the form data', async function () {
+    const email = 'alex@test.com';
+    const honey = 'Alex';
+    const hook = {
+      url: 'http://localhost:3000',
+      method: 'POST',
+      headers: {
+        'Authorization': 'test',
+        'Content-Type': 'application/json',
+      },
+    };
+    let receivedData;
+    let receivedHeaders;
+    const server = await new Promise((resolve) => {
+      // Listen for the hook
+      const server = http.createServer((req, res) => {
+        // get the request body from IncomingMessage
+        let data = '';
+        req.on('data', (chunk) => {
+          data += chunk;
+        });
+        req.on('end', () => {
+          res.end();
+          receivedData = JSON.parse(data.toString());
+        });
+        receivedHeaders = req.headers;
+        res.end();
+      });
+      server.listen(3000, () => resolve(server));
+    });
+    // Process the form
+    await handleForm({
+      honey,
+      email,
+      token: 'tokenTest',
+    }, undefined, {
+      mail: {
+        host: 'localhost',
+        port: smtpPort,
+      },
+      to: 'alex@test.com',
+      hook: {
+        'tokenTest': hook,
+      },
+      honeyField: 'honey',
+      tokenField: 'token',
+    }, 'headers');
+    // Wait for hook to be received
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Stop the server after the test
+    server.close();
+    // Assertions
+    assert.ok(receivedData, 'Data should be defined');
+    assert.strictEqual(receivedData.email, email, 'Email should match');
+    assert.ok(receivedHeaders, 'Headers should be defined');
+    assert.strictEqual(receivedHeaders.authorization, 'test', 'Headers should match');
+
   });
 });

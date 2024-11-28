@@ -25,10 +25,10 @@ Features and road map
 - [x] Use tokens instead of emails to avoid being scrapped and spammed
 - [x] Easy self hosting with a docker image or instructions for nodejs
 - [x] Honeypot field to avoid spam
+- [x] Webhook to send data to other services
 - [ ] Error page redirection or message in GET
 - [ ] Send confirmation email to the form submitter
 - [ ] Captcha to avoid spam
-- [ ] Webhook to send data to other services
 - [ ] Localisation of the messages / emails (i18n, multiple languages)
 
 ## Usage
@@ -172,6 +172,8 @@ Here are all the environment variables you can use, check the file `lib/index.js
 | DISCLAIMER | Message added to the email sent to the recipient. May contain HTML. |
 | TO | Email address(es) to send the form to (your email) |
 | TO | A json object with tokens as keys and email addresses as values. The form will be expected to have a hidden field with the name `token` and the value of the token. If the token is found in the object, the email will be sent to the corresponding email address(es). |
+| HOOK | URL to send the form data to as a POST request |
+| HOOK | A json object with tokens as keys and `{ "url": "string", "headers": { "name": "value" } }` as values. The form can have an optional hidden field with the name `token` and the value of the token. If the token is found in the object, the form data will be sent to the corresponding URL. |
 | FROM | Email address to use as sender address |
 | REDIRECT | If set to true, the server will redirect to the URL provided in the `thanks` hidden field of the form |
 | REDIRECT_DOMAINS | Comma separated list of domains for which the server will redirect to the URL provided in the `thanks` hidden field of the form |
