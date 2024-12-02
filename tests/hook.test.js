@@ -33,12 +33,12 @@ describe('sendHook', () => {
         'Content-Type': 'application/json',
       },
     };
-    await sendHook(html, to, reqHeaders, hook)
+    await sendHook(html, to, reqHeaders, hook, {}, false, 'response');
     await new Promise((resolve) => setTimeout(resolve, 100));
     server.close();
     assert.ok(receivedData, 'Data should be defined');
     assert.strictEqual(receivedData.message, html, 'Message should match');
-    assert.strictEqual(receivedData.email, to, 'Email should match');
+    assert.strictEqual(receivedData.to, to, 'Email should match');
     assert.ok(receivedHeaders, 'Headers should be defined');
     assert.strictEqual(receivedHeaders.Authorization, reqHeaders.Authorization, 'Headers should match');
   });
