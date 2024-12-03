@@ -183,6 +183,7 @@ Here are all the environment variables you can use, check the file `lib/index.js
 | EMAIL_PORT | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_USER | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
 | EMAIL_PASS | SMTP config: [see these options here](https://nodemailer.com/smtp/) |
+| THANKS_FIELD | Name of the field in the form which contains the URL to redirect to after the form submission |
 | TOKEN_FIELD | Name of the field in the form which contains the token |
 | SITE_FIELD | Name of the field in the form which contains the site name (used in the email subject) |
 | HONEY_FIELD | Name of the field in the form which is a honeypot (if filled, the form will be considered as spam) |
