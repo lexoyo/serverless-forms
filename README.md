@@ -144,9 +144,14 @@ docker run -e EMAIL_USER="username" \
 
 ### 1 click deploy
 
-Deploy in 1 click on heroku
+Deploy in 1 click on Heroku
 
 [![Deploy in 1 click](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/lexoyo/email-form-data/tree/master)
+
+Deploy in 1 click on Railway
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/serverless-forms)
+
 
 ### Local install
 
