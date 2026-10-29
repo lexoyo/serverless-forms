@@ -1,5 +1,6 @@
 import assert from 'assert';
 import http from 'http';
+import fetch from 'node-fetch';
 import { processForm } from '../lib/post.js';
 
 describe('processForm', function () {
