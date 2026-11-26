@@ -33,12 +33,15 @@ describe('sendHook', () => {
         'Content-Type': 'application/json',
       },
     };
-    await sendHook(html, to, reqHeaders, hook, {}, false, 'response');
+    await sendHook(html, to, reqHeaders, hook, { name: 'Ada', email: 'ada@example.com' }, false, 'response');
     await new Promise((resolve) => setTimeout(resolve, 100));
     server.close();
     assert.ok(receivedData, 'Data should be defined');
     assert.strictEqual(receivedData.message, html, 'Message should match');
     assert.strictEqual(receivedData.to, to, 'Email should match');
+    assert.strictEqual(typeof receivedData.fields, 'string', 'Fields should be sent as text');
+    assert.deepStrictEqual(JSON.parse(receivedData.fields), { name: 'Ada', email: 'ada@example.com' }, 'Fields should round-trip');
+    assert.strictEqual(receivedData.name, 'Ada', 'Each field should still be sent on its own');
     assert.ok(receivedHeaders, 'Headers should be defined');
     assert.strictEqual(receivedHeaders.Authorization, reqHeaders.Authorization, 'Headers should match');
   });
